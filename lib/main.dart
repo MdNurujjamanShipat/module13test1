@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Contact List',
       theme: ThemeData(
-        // The overall theme uses blueGrey as requested
+
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -40,8 +40,7 @@ class _ContactListPageState extends State<ContactListPage> {
   final TextEditingController _numberController = TextEditingController();
   final List<Contact> _contacts = [];
 
-  // Define the consistent color to use for the AppBar, Button, and Call Icon
-  // Using a specific shade of BlueGrey that matches the image's dark, muted tone.
+
   static const Color _appBarColor = Colors.blueGrey;
 
   void _addContact() {
@@ -65,10 +64,10 @@ class _ContactListPageState extends State<ContactListPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Confirmation'),
-          // Adjusted content text to match the image's prompt for deletion
+
           content: const Text('Are you sure for Delete?'),
           actions: <Widget>[
-            // Changed to match the image's visual style for "Cancel" and "Delete" icons
+
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -98,7 +97,7 @@ class _ContactListPageState extends State<ContactListPage> {
           'Contact List',
           style: TextStyle(color: Colors.white), // Ensures title is white
         ),
-        // === UPDATED Background Color to Blue Grey ===
+
         backgroundColor: _appBarColor,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -147,7 +146,7 @@ class _ContactListPageState extends State<ContactListPage> {
               itemBuilder: (context, index) {
                 final contact = _contacts[index];
                 return Card(
-                  // Alternating color for the Card/ListTile background for visual separation
+
                   color: index.isOdd ? Colors.white : Colors.blueGrey.shade50,
                   margin:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -161,7 +160,7 @@ class _ContactListPageState extends State<ContactListPage> {
                         // Use Blue Grey for the call icon
                         icon: const Icon(Icons.call, color: _appBarColor),
                         onPressed: () {
-                          // Implement call functionality
+
                         },
                       ),
                     ),
