@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Contact List',
-      // Keep the theme data clean, but the AppBar will override its color
       theme: ThemeData(
+        // The overall theme uses blueGrey as requested
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -40,6 +40,10 @@ class _ContactListPageState extends State<ContactListPage> {
   final TextEditingController _numberController = TextEditingController();
   final List<Contact> _contacts = [];
 
+  // Define the consistent color to use for the AppBar, Button, and Call Icon
+  // Using a specific shade of BlueGrey that matches the image's dark, muted tone.
+  static const Color _appBarColor = Colors.blueGrey;
+
   void _addContact() {
     setState(() {
       if (_nameController.text.isNotEmpty && _numberController.text.isNotEmpty) {
@@ -61,13 +65,15 @@ class _ContactListPageState extends State<ContactListPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Confirmation'),
-          content: const Text('Are you sure you want to delete this contact?'),
+          // Adjusted content text to match the image's prompt for deletion
+          content: const Text('Are you sure for Delete?'),
           actions: <Widget>[
+            // Changed to match the image's visual style for "Cancel" and "Delete" icons
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
+              child: const Icon(Icons.cancel_outlined, color: Colors.blueGrey),
             ),
             TextButton(
               onPressed: () {
@@ -76,7 +82,7 @@ class _ContactListPageState extends State<ContactListPage> {
                 });
                 Navigator.of(context).pop();
               },
-              child: const Text('Delete'),
+              child: const Icon(Icons.delete_outline, color: Colors.red),
             ),
           ],
         );
@@ -92,10 +98,8 @@ class _ContactListPageState extends State<ContactListPage> {
           'Contact List',
           style: TextStyle(color: Colors.white), // Ensures title is white
         ),
-        // === Background Color Fix ===
-        // Setting the background color for the AppBar (Title Bar)
-        backgroundColor: const Color(0xFF008080), // Teal/blue-green color
-        // Ensures icons/text on the AppBar are light (white)
+        // === UPDATED Background Color to Blue Grey ===
+        backgroundColor: _appBarColor,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(
@@ -127,8 +131,8 @@ class _ContactListPageState extends State<ContactListPage> {
                     onPressed: _addContact,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 12),
-                      // Using the same blue-green color for the button
-                      backgroundColor: const Color(0xFF008080),
+                      // Use Blue Grey for the button
+                      backgroundColor: _appBarColor,
                       foregroundColor: Colors.white,
                     ),
                     child: const Text('Add'),
@@ -143,16 +147,19 @@ class _ContactListPageState extends State<ContactListPage> {
               itemBuilder: (context, index) {
                 final contact = _contacts[index];
                 return Card(
+                  // Alternating color for the Card/ListTile background for visual separation
+                  color: index.isOdd ? Colors.white : Colors.blueGrey.shade50,
                   margin:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   child: GestureDetector(
                     onLongPress: () => _deleteContact(index),
                     child: ListTile(
-                      leading: const Icon(Icons.person),
-                      title: Text(contact.name),
+                      leading: const Icon(Icons.person, color: Colors.black54),
+                      title: Text(contact.name, style: const TextStyle(fontWeight: FontWeight.bold)),
                       subtitle: Text(contact.number),
                       trailing: IconButton(
-                        icon: const Icon(Icons.call, color: Color(0xFF008080)),
+                        // Use Blue Grey for the call icon
+                        icon: const Icon(Icons.call, color: _appBarColor),
                         onPressed: () {
                           // Implement call functionality
                         },
